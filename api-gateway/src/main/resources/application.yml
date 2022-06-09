@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+      - id: product-service
+        uri: lb://product-service
+        predicates:
+          - Path=/api/v1/product/**
+      - id: supplier-service
+        uri: lb://supplier-service
+        predicates:
+          - Path=/api/v1/supplier/**
+      - id: notification-service
+        uri: lb://notification-service
+        predicates:
+          - Path=/api/v1/notification/**
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+logging:
+    level:
+      root: INFO
+      org.springframework.cloud.gateway: TRACE
+      org.springframework.cloud.gateway.route.RouteDefinitionLocator: INFO
