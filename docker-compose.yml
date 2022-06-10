@@ -38,7 +38,7 @@ services:
     ports:
       # Application Port
       - "5672:5672"
-      # Application
+      # Management Console Port
       - "15672:15672"
 networks:
   postgres:
