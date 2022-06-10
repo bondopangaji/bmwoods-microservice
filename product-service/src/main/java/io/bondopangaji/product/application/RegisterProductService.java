@@ -11,6 +11,7 @@ import io.bondopangaji.product.application.port.inbound.RegisterProductUseCase;
 import io.bondopangaji.product.application.port.inbound.command.RegisterProductCommand;
 import io.bondopangaji.product.application.port.inbound.command.SendSupplierNotificationCommand;
 import io.bondopangaji.product.application.port.outbound.PersistProductPort;
+import io.bondopangaji.product.application.port.outbound.RabbitMQMessageProducerPort;
 import io.bondopangaji.product.application.port.outbound.WebClientPort;
 import io.bondopangaji.product.domain.Product;
 import org.springframework.stereotype.Service;
@@ -19,14 +20,15 @@ import org.springframework.stereotype.Service;
  * @author Bondo Pangaji
  */
 @Service
-public record RegisterProductService(PersistProductPort persistProductPort, WebClientPort webClientPort)
+public record RegisterProductService(PersistProductPort persistProductPort, WebClientPort webClientPort,
+                                     RabbitMQMessageProducerPort rabbitMQMessageProducerPort)
         implements RegisterProductUseCase {
     @Override
     public void register(RegisterProductCommand registerProductCommand) {
         // Fetch check supplier via synchronous webclient
         Boolean checkSupplier = webClientPort.webClient()
                 .get()
-                .uri("http://localhost:8080/api/v1/supplier/check/", uriBuilder
+                .uri("http://localhost:8082/api/v1/supplier/check/", uriBuilder
                         -> uriBuilder.path(String.valueOf(registerProductCommand.supplierId())).build())
                 .retrieve()
                 .bodyToMono(Boolean.class)
@@ -57,12 +59,10 @@ public record RegisterProductService(PersistProductPort persistProductPort, WebC
                 registerProductCommand.quantity()
         );
 
-        webClientPort.webClient()
-                 .post()
-                 .uri("http://localhost:8080/api/v1/notification")
-                 .bodyValue(sendSupplierNotificationCommand)
-                 .retrieve()
-                 .bodyToMono(void.class)
-                 .block();
+        rabbitMQMessageProducerPort.publish(
+                sendSupplierNotificationCommand,
+                "internal.exchange",
+                "internal.notification.routing-key"
+        );
     }
 }
