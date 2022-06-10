@@ -14,7 +14,12 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 /**
  * @author Bondo Pangaji
  */
-@SpringBootApplication
+@SpringBootApplication(
+        scanBasePackages = {
+                "io.bondopangaji.product",
+                "io.bondopangaji.messagequeue"
+        }
+)
 @EnableEurekaClient
 public class ProductApplication {
     public static void main(String[] args) {
