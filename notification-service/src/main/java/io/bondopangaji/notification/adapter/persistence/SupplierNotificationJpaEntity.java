@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-package io.bondopangaji.adapter.persistence;
+package io.bondopangaji.notification.adapter.persistence;
 
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;

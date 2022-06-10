@@ -5,10 +5,10 @@
  * https://opensource.org/licenses/MIT
  */
 
-package io.bondopangaji.adapter.persistence;
+package io.bondopangaji.notification.adapter.persistence;
 
-import io.bondopangaji.application.port.outbound.SendSupplierNotificationPort;
-import io.bondopangaji.domain.SupplierNotification;
+import io.bondopangaji.notification.application.port.outbound.SendSupplierNotificationPort;
+import io.bondopangaji.notification.domain.SupplierNotification;
 import org.springframework.stereotype.Component;
 
 /**

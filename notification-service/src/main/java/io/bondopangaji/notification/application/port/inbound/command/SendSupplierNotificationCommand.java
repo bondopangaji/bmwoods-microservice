@@ -5,14 +5,14 @@
  * https://opensource.org/licenses/MIT
  */
 
-package io.bondopangaji.adapter.api.request;
+package io.bondopangaji.notification.application.port.inbound.command;
 
 import java.util.UUID;
 
 /**
  * @author Bondo Pangaji
  */
-public record SendSupplierNotificationRequest(
+public record SendSupplierNotificationCommand(
         UUID toSupplierId,
         String name,
         Long quantity

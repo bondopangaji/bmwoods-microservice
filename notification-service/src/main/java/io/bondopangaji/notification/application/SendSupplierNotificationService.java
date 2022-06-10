@@ -5,13 +5,12 @@
  * https://opensource.org/licenses/MIT
  */
 
-package io.bondopangaji.application;
+package io.bondopangaji.notification.application;
 
-import io.bondopangaji.application.port.inbound.SendSupplierNotificationUseCase;
-import io.bondopangaji.application.port.inbound.command.SendSupplierNotificationCommand;
-import io.bondopangaji.application.port.outbound.SendSupplierNotificationPort;
-import io.bondopangaji.application.port.outbound.WebClientPort;
-import io.bondopangaji.domain.SupplierNotification;
+import io.bondopangaji.notification.application.port.inbound.SendSupplierNotificationUseCase;
+import io.bondopangaji.notification.application.port.inbound.command.SendSupplierNotificationCommand;
+import io.bondopangaji.notification.application.port.outbound.*;
+import io.bondopangaji.notification.domain.SupplierNotification;
 import org.springframework.stereotype.Service;
 
 /**
@@ -19,15 +18,16 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public record SendSupplierNotificationService(SendSupplierNotificationPort sendSupplierNotificationPort,
-                                              WebClientPort webClientPort)
+                                              WebClientPort webClientPort,
+                                              SendEmailNotificationPort sendEmailNotificationPort)
         implements SendSupplierNotificationUseCase {
     @Override
     public void sendAndPersist(SendSupplierNotificationCommand sendSupplierNotificationCommand) {
 
-        // Get supplier email
+        // Internal comms
         String email = webClientPort.webClient()
                 .get()
-                .uri("http://localhost:8080/api/v1/supplier/get-email/", uriBuilder
+                .uri("http://localhost:8082/api/v1/supplier/get-email/", uriBuilder
                         -> uriBuilder.path(String.valueOf(sendSupplierNotificationCommand.toSupplierId())).build())
                 .retrieve()
                 .bodyToMono(String.class)
@@ -45,7 +45,8 @@ public record SendSupplierNotificationService(SendSupplierNotificationPort sendS
                 .sentAt(System.currentTimeMillis())
                 .build();
 
-        // TODO: Send notification with Spring Email via Google Mail SMTP
+        // Send notification with Spring Email via Google Mail SMTP
+        sendEmailNotificationPort.sendMessages(supplierNotification);
 
         // Persist notification data to DB
         sendSupplierNotificationPort.save(supplierNotification);

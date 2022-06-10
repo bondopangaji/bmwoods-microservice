@@ -5,9 +5,9 @@
  * https://opensource.org/licenses/MIT
  */
 
-package io.bondopangaji.application.port.inbound;
+package io.bondopangaji.notification.application.port.inbound;
 
-import io.bondopangaji.application.port.inbound.command.SendSupplierNotificationCommand;
+import io.bondopangaji.notification.application.port.inbound.command.SendSupplierNotificationCommand;
 
 /**
  * @author Bondo Pangaji

@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-package io.bondopangaji.application.port.outbound;
+package io.bondopangaji.notification.application.port.outbound;
 
 import org.springframework.web.reactive.function.client.WebClient;
 

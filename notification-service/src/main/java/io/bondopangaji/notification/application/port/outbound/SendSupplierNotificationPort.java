@@ -5,10 +5,9 @@
  * https://opensource.org/licenses/MIT
  */
 
-package io.bondopangaji.application.port.outbound;
+package io.bondopangaji.notification.application.port.outbound;
 
-import io.bondopangaji.domain.SupplierNotification;
-import org.springframework.stereotype.Component;
+import io.bondopangaji.notification.domain.SupplierNotification;
 
 /**
  * @author Bondo Pangaji

@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-package io.bondopangaji.domain;
+package io.bondopangaji.notification.domain;
 
 import lombok.*;
 
