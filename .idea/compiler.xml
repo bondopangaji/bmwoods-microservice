@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="supplier-service" />
+        <module name="message-queue" />
         <module name="api-gateway" />
         <module name="product-service" />
         <module name="order-service" />
@@ -16,11 +17,14 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="customer-service" target="17" />
-      <module name="inventory-service" target="17" />
+      <module name="api-gateway" target="17" />
+      <module name="bmwoods-microservice" target="17" />
+      <module name="eureka-server" target="17" />
       <module name="message-broker" target="17" />
-      <module name="order-service" target="17" />
-      <module name="transaction-service" target="17" />
+      <module name="message-queue" target="17" />
+      <module name="notification-service" target="17" />
+      <module name="product-service" target="17" />
+      <module name="supplier-service" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
