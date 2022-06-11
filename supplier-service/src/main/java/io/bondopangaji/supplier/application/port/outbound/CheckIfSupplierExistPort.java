@@ -7,8 +7,6 @@
 
 package io.bondopangaji.supplier.application.port.outbound;
 
-import org.springframework.stereotype.Component;
-
 import java.util.UUID;
 
 /**

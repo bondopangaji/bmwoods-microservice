@@ -7,7 +7,6 @@
 
 package io.bondopangaji.product.application.port.outbound;
 
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.web.reactive.function.client.WebClient;
 
 /**

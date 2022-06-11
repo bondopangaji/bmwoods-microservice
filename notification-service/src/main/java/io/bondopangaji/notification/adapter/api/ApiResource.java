@@ -7,11 +7,8 @@
 
 package io.bondopangaji.notification.adapter.api;
 
-import io.bondopangaji.notification.adapter.api.request.SendSupplierNotificationRequest;
 import io.bondopangaji.notification.application.port.inbound.SendSupplierNotificationUseCase;
-import io.bondopangaji.notification.application.port.inbound.command.SendSupplierNotificationCommand;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 /**

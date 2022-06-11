@@ -8,9 +8,7 @@
 package io.bondopangaji.supplier.application;
 
 import io.bondopangaji.supplier.application.port.inbound.FetchSupplierEmailUseCase;
-import io.bondopangaji.supplier.application.port.inbound.FetchSupplierUseCase;
 import io.bondopangaji.supplier.application.port.outbound.FetchSupplierEmailPort;
-import io.bondopangaji.supplier.domain.Supplier;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
