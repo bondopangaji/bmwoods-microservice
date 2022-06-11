@@ -7,32 +7,27 @@
 
 package io.bondopangaji.product.application;
 
+import io.bondopangaji.feignclient.SupplierClient;
 import io.bondopangaji.product.application.port.inbound.RegisterProductUseCase;
 import io.bondopangaji.product.application.port.inbound.command.RegisterProductCommand;
 import io.bondopangaji.product.application.port.inbound.command.SendSupplierNotificationCommand;
 import io.bondopangaji.product.application.port.outbound.PersistProductPort;
 import io.bondopangaji.product.application.port.outbound.RabbitMQMessageProducerPort;
-import io.bondopangaji.product.application.port.outbound.WebClientPort;
 import io.bondopangaji.product.domain.Product;
 import org.springframework.stereotype.Service;
+
 
 /**
  * @author Bondo Pangaji
  */
 @Service
-public record RegisterProductService(PersistProductPort persistProductPort, WebClientPort webClientPort,
+public record RegisterProductService(PersistProductPort persistProductPort, SupplierClient supplierClient,
                                      RabbitMQMessageProducerPort rabbitMQMessageProducerPort)
         implements RegisterProductUseCase {
     @Override
-    public void register(RegisterProductCommand registerProductCommand) {
-        // Fetch check supplier via synchronous webclient
-        Boolean checkSupplier = webClientPort.webClient()
-                .get()
-                .uri("http://localhost:8082/api/v1/supplier/check/", uriBuilder
-                        -> uriBuilder.path(String.valueOf(registerProductCommand.supplierId())).build())
-                .retrieve()
-                .bodyToMono(Boolean.class)
-                .block(); // Synchronous style
+    public void register(RegisterProductCommand command) {
+        // Fetch check supplier via open feign client
+        Boolean checkSupplier = supplierClient.checkIfSupplierExist(command.supplierId());
 
         // Check if supplier exist
         if (Boolean.FALSE.equals(checkSupplier)) {
@@ -41,11 +36,11 @@ public record RegisterProductService(PersistProductPort persistProductPort, WebC
 
         // Create and persist product to DB
         Product product = Product.builder()
-                .name(registerProductCommand.name())
-                .description(registerProductCommand.description())
-                .price(registerProductCommand.price())
-                .quantity(registerProductCommand.quantity())
-                .supplierId(registerProductCommand.supplierId())
+                .name(command.name())
+                .description(command.description())
+                .price(command.price())
+                .quantity(command.quantity())
+                .supplierId(command.supplierId())
                 .createdAt(System.currentTimeMillis())
                 .updatedAt(System.currentTimeMillis())
                 .build();
@@ -54,9 +49,9 @@ public record RegisterProductService(PersistProductPort persistProductPort, WebC
 
         // Notify supplier that product has been registered
         SendSupplierNotificationCommand sendSupplierNotificationCommand = new SendSupplierNotificationCommand(
-                registerProductCommand.supplierId(),
-                registerProductCommand.name(),
-                registerProductCommand.quantity()
+                command.supplierId(),
+                command.name(),
+                command.quantity()
         );
 
         rabbitMQMessageProducerPort.publish(

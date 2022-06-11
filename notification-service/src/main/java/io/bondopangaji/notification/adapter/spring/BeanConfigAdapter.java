@@ -7,14 +7,12 @@
 
 package io.bondopangaji.notification.adapter.spring;
 
-import io.bondopangaji.notification.application.port.outbound.WebClientPort;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
-import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.Properties;
 
@@ -22,7 +20,7 @@ import java.util.Properties;
  * @author Bondo Pangaji
  */
 @Configuration
-public class BeanConfigAdapter implements WebClientPort {
+public class BeanConfigAdapter {
     @Value("${spring.mail.host}")
     private String smtpHost;
     @Value("${spring.mail.port}")
@@ -39,13 +37,6 @@ public class BeanConfigAdapter implements WebClientPort {
     private boolean smtpTls;
     @Value("${spring.mail.properties.mail.debug}")
     private boolean smtpDebug;
-
-    @Bean
-    @LoadBalanced
-    @Override
-    public WebClient webClient() {
-        return WebClient.builder().build();
-    }
 
     @Bean
     @LoadBalanced

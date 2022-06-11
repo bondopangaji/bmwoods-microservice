@@ -7,6 +7,7 @@
 
 package io.bondopangaji.notification.application;
 
+import io.bondopangaji.feignclient.SupplierClient;
 import io.bondopangaji.notification.application.port.inbound.SendSupplierNotificationUseCase;
 import io.bondopangaji.notification.application.port.inbound.command.SendSupplierNotificationCommand;
 import io.bondopangaji.notification.application.port.outbound.*;
@@ -18,20 +19,13 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public record SendSupplierNotificationService(SendSupplierNotificationPort sendSupplierNotificationPort,
-                                              WebClientPort webClientPort,
+                                              SupplierClient supplierClient,
                                               SendEmailNotificationPort sendEmailNotificationPort)
         implements SendSupplierNotificationUseCase {
     @Override
     public void sendAndPersist(SendSupplierNotificationCommand sendSupplierNotificationCommand) {
-
-        // Internal comms
-        String email = webClientPort.webClient()
-                .get()
-                .uri("http://localhost:8082/api/v1/supplier/get-email/", uriBuilder
-                        -> uriBuilder.path(String.valueOf(sendSupplierNotificationCommand.toSupplierId())).build())
-                .retrieve()
-                .bodyToMono(String.class)
-                .block(); // Synchronous style
+        // Fetch supplier email via open feign client
+        String email = supplierClient.getSupplierEmail(sendSupplierNotificationCommand.toSupplierId());
 
         // Build notification
         SupplierNotification supplierNotification = SupplierNotification.builder()

@@ -7,11 +7,11 @@
 
 package io.bondopangaji.product.application;
 
+import io.bondopangaji.feignclient.SupplierClient;
 import io.bondopangaji.product.application.port.inbound.ModifyProductUseCase;
 import io.bondopangaji.product.application.port.inbound.command.ModifyProductCommand;
 import io.bondopangaji.product.application.port.outbound.GetProductByIdPort;
 import io.bondopangaji.product.application.port.outbound.PersistProductPort;
-import io.bondopangaji.product.application.port.outbound.WebClientPort;
 import io.bondopangaji.product.domain.Product;
 import org.springframework.stereotype.Service;
 
@@ -21,17 +21,14 @@ import java.util.UUID;
  * @author Bondo Pangaji
  */
 @Service
-public record ModifyProductService(PersistProductPort persistProductPort, GetProductByIdPort getProductByIdPort, WebClientPort webClientPort) implements ModifyProductUseCase {
+public record ModifyProductService(PersistProductPort persistProductPort,
+                                   GetProductByIdPort getProductByIdPort,
+                                   SupplierClient supplierClient)
+        implements ModifyProductUseCase {
     @Override
     public void modify(UUID productId, ModifyProductCommand command) {
-        // Fetch check supplier via synchronous webclient
-        Boolean checkSupplier = webClientPort.webClient()
-                .get()
-                .uri("http://localhost:8080/api/v1/supplier/check/", uriBuilder
-                        -> uriBuilder.path(String.valueOf(command.supplierId())).build())
-                .retrieve()
-                .bodyToMono(Boolean.class)
-                .block();
+        // Fetch check supplier via open feign client
+        Boolean checkSupplier = supplierClient.checkIfSupplierExist(command.supplierId());
 
         // Check if supplier exist
         if (Boolean.FALSE.equals(checkSupplier)) {
