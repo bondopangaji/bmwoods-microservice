@@ -89,6 +89,7 @@ public record ApiResource(RegisterSupplierUseCase registerSupplierUseCase,
     }
 
     @GetMapping({"/get-email/{supplierId}"})
+    @ResponseStatus(HttpStatus.OK)
     public String getSupplierEmail(@PathVariable("supplierId") UUID supplierId) {
         return fetchSupplierEmailUseCase.fetchSupplierById(supplierId);
     }
