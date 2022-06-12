@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-package io.bondopangaji.notification.adapter.spring;
+package io.bondopangaji.notification;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -20,7 +20,7 @@ import java.util.Properties;
  * @author Bondo Pangaji
  */
 @Configuration
-public class BeanConfigAdapter {
+public class BeanConfig {
     @Value("${spring.mail.host}")
     private String smtpHost;
     @Value("${spring.mail.port}")
