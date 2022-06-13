@@ -30,7 +30,9 @@
 <!-- ABOUT THE PROJECT -->
 ## About Product Service
 
-[![Hexagonal Architecture][hexagonal-architecture]](bmwoods-hexagonal-architecture.jpg)
+<div align="center">
+    <img src="bmwoods-hexagonal-architecture.jpg" width="500" height="" />
+</div>
 
 Product Service process product-related business application with PostgreSQL as its database. Hexagonal Architecture and
 SOLID principle was implemented during the development of the service, this implementation will invert code dependencies
