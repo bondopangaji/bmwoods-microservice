@@ -21,6 +21,14 @@ public record CheckIfSupplierExistService(CheckIfSupplierExistPort checkIfSuppli
         implements CheckIfSupplierExistUseCase {
     @Override
     public boolean checkById(UUID supplierId) {
-        return checkIfSupplierExistPort.existById(supplierId);
+        // Fetch check-supplier from DB
+        boolean fetchedSupplier = checkIfSupplierExistPort.existById(supplierId);
+
+        // Check if supplier does not exist
+        if (!fetchedSupplier) {
+            throw new RuntimeException("Supplier does not exist!");
+        }
+
+        return true;
     }
 }

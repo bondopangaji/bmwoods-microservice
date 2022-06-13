@@ -21,6 +21,14 @@ import java.util.List;
 public record FetchAllSupplierService(FetchAllSupplierPort fetchAllSupplierPort) implements FetchAllSupplierUseCase {
     @Override
     public List<Supplier> fetchAll() {
-        return fetchAllSupplierPort.findAll();
+        // Fetch suppliers from DB
+        List<Supplier> suppliers = fetchAllSupplierPort.findAll();
+
+        // Check if suppliers does not exist
+        if (suppliers == null) {
+            throw new RuntimeException("Suppliers does not exist!");
+        }
+
+        return suppliers;
     }
 }

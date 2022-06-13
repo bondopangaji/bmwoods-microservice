@@ -9,6 +9,7 @@ package io.bondopangaji.supplier.application.service;
 
 import io.bondopangaji.supplier.application.port.inbound.FetchSupplierEmailUseCase;
 import io.bondopangaji.supplier.application.port.outbound.FetchSupplierEmailPort;
+import io.bondopangaji.supplier.domain.Supplier;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -20,6 +21,14 @@ import java.util.UUID;
 public record FetchSupplierEmailService(FetchSupplierEmailPort fetchSupplierEmailPort) implements FetchSupplierEmailUseCase {
     @Override
     public String fetchSupplierById(UUID supplierId) {
-        return fetchSupplierEmailPort.getSupplierEmailById(supplierId);
+        // Fetch supplier email from DB
+        String fetchedSupplierEmail = fetchSupplierEmailPort.getSupplierEmailById(supplierId);
+
+        // Check if supplier email does not exist
+        if (fetchedSupplierEmail == null) {
+            throw new RuntimeException("Supplier email is not exist!");
+        }
+
+        return fetchedSupplierEmail;
     }
 }

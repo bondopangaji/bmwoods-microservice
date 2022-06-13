@@ -21,6 +21,13 @@ import java.util.UUID;
 public record FetchSupplierService(GetSupplierByIdPort getSupplierByIdPort) implements FetchSupplierUseCase {
     @Override
     public Supplier fetchSupplierById(UUID supplierId) {
+        // Fetch supplier from DB
+        Supplier fetchedSupplier = getSupplierByIdPort.getById(supplierId);
+
+        // Check if supplier does not exist
+        if (fetchedSupplier == null) {
+            throw new RuntimeException("Supplier is not exist!");
+        }
         return getSupplierByIdPort.getById(supplierId);
     }
 }

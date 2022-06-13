@@ -27,6 +27,11 @@ public record ModifySupplierService(PersistSupplierPort persistSupplierPort, Get
         // Fetch supplier from DB
         Supplier fetchedSupplier = getSupplierByIdPort.getById(supplierId);
 
+        // Check if supplier does not exist
+        if (fetchedSupplier == null) {
+            throw new RuntimeException("Supplier is not exist!");
+        }
+
         // Modify and persist fetched supplier to DB
         fetchedSupplier.setName(command.name());
         fetchedSupplier.setEmail(command.email());
