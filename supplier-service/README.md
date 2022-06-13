@@ -14,7 +14,7 @@
   <summary>Table of Contents</summary>
   <ol>
     <li>
-      <a href="#about-the-project">About The Project</a>
+      <a href="#about-the-project">About Supplier Service</a>
       <ul>
         <li><a href="#built-with">Built With</a></li>
       </ul>
@@ -27,7 +27,7 @@
 
 
 
-<!-- ABOUT THE PROJECT -->
+<!-- ABOUT SUPPLIER SERVICE -->
 ## About Supplier Service
 
 <div align="center">
