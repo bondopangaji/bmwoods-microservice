@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-package io.bondopangaji.supplier.application;
+package io.bondopangaji.supplier.application.service;
 
 import io.bondopangaji.supplier.application.port.inbound.FetchAllSupplierUseCase;
 import io.bondopangaji.supplier.application.port.outbound.FetchAllSupplierPort;
