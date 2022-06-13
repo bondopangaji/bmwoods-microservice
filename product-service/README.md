@@ -31,7 +31,7 @@
 ## About Product Service
 
 <div align="center">
-    <img src="bmwoods-hexagonal-architecture.jpg" width="500" height="" />
+    <img src="bmwoods-hexagonal-architecture.jpg" width="750" height="" />
 </div>
 
 Product Service process product-related business application with PostgreSQL as its database. Hexagonal Architecture and
