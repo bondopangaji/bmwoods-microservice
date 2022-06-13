@@ -18,7 +18,6 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public record NotificationConsumer(SendSupplierNotificationUseCase sendSupplierNotificationUseCase) {
-
     @RabbitListener(queues = "${rabbitmq.queues.notification}")
     public void consumeSendNotification(SendSupplierNotificationRequest sendSupplierNotificationRequest) {
         SendSupplierNotificationCommand command = new SendSupplierNotificationCommand(
