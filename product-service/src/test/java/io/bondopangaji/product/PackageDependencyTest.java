@@ -6,6 +6,7 @@ package io.bondopangaji.product;/*
  */
 
 import com.tngtech.archunit.core.importer.ClassFileImporter;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
@@ -15,6 +16,7 @@ import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
  */
 public class PackageDependencyTest {
     @Test
+    @DisplayName("Should validate dependency between package")
     void testPackageDependencies() {
         noClasses()
                 .that()
