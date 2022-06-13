@@ -34,7 +34,7 @@
     <img src="bmwoods-hexagonal-architecture.jpg" width="750" height="" />
 </div>
 
-Notification Service process supplier-related business application with PostgreSQL as its database. Hexagonal Architecture and
+Notification Service process notification-related business application with PostgreSQL as its database. Hexagonal Architecture and
 SOLID principle was implemented during the development of the service, this implementation will invert code dependencies
 so that the domain code has no dependencies to the outside, that leaves the domain decoupled from persistence and UI layer.
 This strategy will reduce reason to change code base resulting higher maintainability.
