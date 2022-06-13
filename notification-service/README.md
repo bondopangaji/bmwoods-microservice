@@ -28,7 +28,7 @@
 
 
 <!-- ABOUT THE PROJECT -->
-## About Product Service
+## About Notification Service
 
 <div align="center">
     <img src="bmwoods-hexagonal-architecture.jpg" width="750" height="" />
