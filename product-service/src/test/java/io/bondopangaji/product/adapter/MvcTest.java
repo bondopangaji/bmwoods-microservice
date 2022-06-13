@@ -136,7 +136,7 @@ public class MvcTest {
 
     @Test
     @DisplayName("Should display status 204 and trigger remove()")
-    public void removeProduct() throws Exception {
+    public void TestRemoveProduct() throws Exception {
         UUID productId = UUID.randomUUID();
 
         mockMvc.perform(

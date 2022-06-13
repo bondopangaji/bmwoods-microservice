@@ -61,10 +61,10 @@ public record ApiResource(RegisterSupplierUseCase registerSupplierUseCase,
         registerSupplierUseCase.register(command);
     }
 
-    @GetMapping("/check/{supplier-id}")
+    @GetMapping("/check/{supplierId}")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Check if supplier exist")
-    public boolean checkIfSupplierExist(@PathVariable("supplier-id") UUID supplierId) {
+    public boolean checkIfSupplierExist(@PathVariable("supplierId") UUID supplierId) {
         log.info("Check if supplier exist by id: {}", supplierId);
         return checkIfSupplierExistUseCase.checkById(supplierId);
     }
