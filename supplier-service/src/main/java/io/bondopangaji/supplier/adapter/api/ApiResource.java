@@ -7,12 +7,15 @@
 
 package io.bondopangaji.supplier.adapter.api;
 
+import io.bondopangaji.supplier.BeanConfig;
 import io.bondopangaji.supplier.adapter.api.request.ModifySupplierRequest;
 import io.bondopangaji.supplier.adapter.api.request.SupplierRegistrationRequest;
 import io.bondopangaji.supplier.application.port.inbound.*;
 import io.bondopangaji.supplier.application.port.inbound.command.ModifySupplierCommand;
 import io.bondopangaji.supplier.application.port.inbound.command.RegisterSupplierCommand;
 import io.bondopangaji.supplier.domain.Supplier;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,21 +30,24 @@ import java.util.UUID;
 @Slf4j
 @RestController
 @RequestMapping("api/v1/supplier")
+@Api(tags = {BeanConfig.SUPPLIER_TAG})
 public record ApiResource(RegisterSupplierUseCase registerSupplierUseCase,
                           FetchAllSupplierUseCase fetchAllSupplierUseCase,
                           CheckIfSupplierExistUseCase checkIfSupplierExistUseCase,
                           ModifySupplierUseCase modifySupplierUseCase, RemoveSupplierUseCase removeSupplierUseCase,
                           FetchSupplierUseCase fetchSupplierUseCase,
                           FetchSupplierEmailUseCase fetchSupplierEmailUseCase) {
-    @GetMapping
+    @GetMapping(produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "View a list of supplier")
     public List<Supplier> fetchAllSupplier() {
         log.info("Fetching all supplier");
         return fetchAllSupplierUseCase.fetchAll();
     }
 
-    @PostMapping
+    @PostMapping(consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
+    @ApiOperation(value = "Register a new supplier")
     public void registerSupplier(@RequestBody SupplierRegistrationRequest supplierRegistrationRequest) {
         log.info("New supplier registration {}", supplierRegistrationRequest.name());
         RegisterSupplierCommand command = new RegisterSupplierCommand(
@@ -57,13 +63,15 @@ public record ApiResource(RegisterSupplierUseCase registerSupplierUseCase,
 
     @GetMapping("/check/{supplier-id}")
     @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Check if supplier exist")
     public boolean checkIfSupplierExist(@PathVariable("supplier-id") UUID supplierId) {
         log.info("Check if supplier exist by id: {}", supplierId);
         return checkIfSupplierExistUseCase.checkById(supplierId);
     }
 
-    @PutMapping({"/{supplierId}"})
+    @PutMapping(value = "/{supplierId}", consumes = "application/json")
     @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Modify a supplier")
     public void modifySupplier(@PathVariable("supplierId") UUID supplierId,
                               @RequestBody ModifySupplierRequest modifySupplierRequest) {
         ModifySupplierCommand command = new ModifySupplierCommand(
@@ -79,17 +87,20 @@ public record ApiResource(RegisterSupplierUseCase registerSupplierUseCase,
 
     @DeleteMapping({"/{supplierId}"})
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ApiOperation(value = "Delete a supplier")
     public void removeSupplier(@PathVariable("supplierId") UUID supplierId) {
         removeSupplierUseCase.remove(supplierId);
     }
 
     @GetMapping({"/{supplierId}"})
+    @ApiOperation(value = "Fetch a supplier")
     public ResponseEntity<Supplier> fetchSupplier(@PathVariable("supplierId") UUID supplierId) {
         return new ResponseEntity<>(fetchSupplierUseCase.fetchSupplierById(supplierId), HttpStatus.OK);
     }
 
-    @GetMapping({"/get-email/{supplierId}"})
+    @GetMapping( value = "/get-email/{supplierId}", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Get supplier email")
     public String getSupplierEmail(@PathVariable("supplierId") UUID supplierId) {
         return fetchSupplierEmailUseCase.fetchSupplierById(supplierId);
     }
