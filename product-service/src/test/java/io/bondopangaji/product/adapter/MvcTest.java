@@ -56,11 +56,6 @@ public class MvcTest {
     @MockBean
     private FetchProductUseCase fetchProductUseCase;
 
-    @BeforeEach
-    public void setUp() {
-
-    }
-
     @Test
     @DisplayName("Should display status 200 and trigger fetchAll()")
     public void testFetchAllProduct() throws Exception {
