@@ -21,10 +21,12 @@ import java.util.UUID;
 public record FetchProductService(GetProductByIdPort getProductByIdPort) implements FetchProductUseCase {
     @Override
     public Product fetchProductById(UUID productId) {
+        // Fetch product from DB
         Product fetchedProduct = getProductByIdPort.getById(productId);
 
+        // Check if product is not exist
         if (fetchedProduct == null) {
-            throw new RuntimeException("Product not found!");
+            throw new RuntimeException("Product is not exist!");
         }
 
         return fetchedProduct;
