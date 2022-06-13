@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-package io.bondopangaji.product.application;
+package io.bondopangaji.product.application.service;
 
 import io.bondopangaji.product.application.port.inbound.RemoveProductUseCase;
 import io.bondopangaji.product.application.port.outbound.RemoveProductPort;

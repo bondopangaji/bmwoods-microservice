@@ -5,8 +5,9 @@
  * https://opensource.org/licenses/MIT
  */
 
-package io.bondopangaji.product.application;
+package io.bondopangaji.product.application.service;
 
+import io.bondopangaji.product.exception.ProductNotFoundException;
 import io.bondopangaji.product.application.port.inbound.FetchProductUseCase;
 import io.bondopangaji.product.application.port.outbound.GetProductByIdPort;
 import io.bondopangaji.product.domain.Product;
