@@ -1,4 +1,4 @@
-package io.bondopangaji.product.application;
+package io.bondopangaji.product.application.service;
 
 import io.bondopangaji.feignclient.SupplierClient;
 import io.bondopangaji.product.application.port.inbound.command.ModifyProductCommand;

@@ -1,4 +1,4 @@
-package io.bondopangaji.product.application;
+package io.bondopangaji.product.application.service;
 
 import io.bondopangaji.product.application.port.outbound.FetchAllProductPort;
 import io.bondopangaji.product.application.service.FetchAllProductService;

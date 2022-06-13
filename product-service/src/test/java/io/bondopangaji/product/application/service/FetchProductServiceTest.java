@@ -1,4 +1,4 @@
-package io.bondopangaji.product.application;
+package io.bondopangaji.product.application.service;
 
 import io.bondopangaji.product.application.service.FetchProductService;
 import io.bondopangaji.product.application.port.outbound.GetProductByIdPort;

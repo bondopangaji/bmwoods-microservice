@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-package io.bondopangaji.product.adapter;
+package io.bondopangaji.product.adapter.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.bondopangaji.product.adapter.api.ApiResource;
