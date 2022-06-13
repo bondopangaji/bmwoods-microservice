@@ -32,11 +32,16 @@ public record ModifyProductService(PersistProductPort persistProductPort,
 
         // Check if supplier exist
         if (Boolean.FALSE.equals(checkSupplier)) {
-            throw new RuntimeException("Supplier is not Exist");
+            throw new RuntimeException("Supplier does not exist");
         }
 
         // Fetch product from DB
         Product fetchedProduct = getProductByIdPort.getById(productId);
+
+        // Check if product exist
+        if (fetchedProduct == null) {
+            throw new RuntimeException("Product does not exist");
+        }
 
         // Modify and persist fetched product to DB
         fetchedProduct.setName(command.name());

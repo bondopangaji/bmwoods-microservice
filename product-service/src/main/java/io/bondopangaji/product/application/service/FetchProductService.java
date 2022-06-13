@@ -26,7 +26,7 @@ public record FetchProductService(GetProductByIdPort getProductByIdPort) impleme
 
         // Check if product is not exist
         if (fetchedProduct == null) {
-            throw new RuntimeException("Product is not exist!");
+            throw new RuntimeException("Product does not exist!");
         }
 
         return fetchedProduct;
