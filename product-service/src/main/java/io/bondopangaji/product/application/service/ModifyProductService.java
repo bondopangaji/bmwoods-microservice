@@ -32,7 +32,7 @@ public record ModifyProductService(PersistProductPort persistProductPort,
 
         // Check if supplier exist
         if (Boolean.FALSE.equals(checkSupplier)) {
-            throw new IllegalStateException("Supplier is not Exist");
+            throw new RuntimeException("Supplier is not Exist");
         }
 
         // Fetch product from DB

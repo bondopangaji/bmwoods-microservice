@@ -31,7 +31,7 @@ public record RegisterProductService(PersistProductPort persistProductPort, Supp
 
         // Check if supplier exist
         if (Boolean.FALSE.equals(checkSupplier)) {
-            throw new IllegalStateException("Supplier is not Exist");
+            throw new RuntimeException("Supplier is not Exist");
         }
 
         // Create and persist product to DB

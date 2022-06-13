@@ -15,7 +15,6 @@ import io.bondopangaji.product.application.port.inbound.command.RegisterProductC
 import io.bondopangaji.product.domain.Product;
 import io.bondopangaji.product.adapter.api.request.RegisterProductRequest;
 import io.swagger.annotations.*;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

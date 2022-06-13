@@ -7,7 +7,6 @@
 
 package io.bondopangaji.product.application.service;
 
-import io.bondopangaji.product.exception.ProductNotFoundException;
 import io.bondopangaji.product.application.port.inbound.FetchProductUseCase;
 import io.bondopangaji.product.application.port.outbound.GetProductByIdPort;
 import io.bondopangaji.product.domain.Product;
@@ -22,6 +21,12 @@ import java.util.UUID;
 public record FetchProductService(GetProductByIdPort getProductByIdPort) implements FetchProductUseCase {
     @Override
     public Product fetchProductById(UUID productId) {
-        return getProductByIdPort.getById(productId);
+        Product fetchedProduct = getProductByIdPort.getById(productId);
+
+        if (fetchedProduct == null) {
+            throw new RuntimeException("Product not found!");
+        }
+
+        return fetchedProduct;
     }
 }

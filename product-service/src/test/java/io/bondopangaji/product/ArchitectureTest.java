@@ -6,7 +6,6 @@ package io.bondopangaji.product;/*
  */
 
 import com.tngtech.archunit.core.importer.ClassFileImporter;
-import com.tngtech.archunit.core.importer.ImportOption;
 import com.tngtech.archunit.library.Architectures;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
