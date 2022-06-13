@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -61,4 +62,13 @@ public class FetchAllProductServiceTest {
 
         verifyNoMoreInteractions(fetchAllProductPort);
     }
+
+    @Test
+    @DisplayName("Should throws an exception when the products do not exist")
+    public void testFetchAllWhenProductsDoNotExistThenThrowsException() {
+        when(fetchAllProductPort.findAll()).thenReturn(null);
+
+        assertThrows(RuntimeException.class, () -> fetchAllProductService.fetchAll());
+    }
+
 }
