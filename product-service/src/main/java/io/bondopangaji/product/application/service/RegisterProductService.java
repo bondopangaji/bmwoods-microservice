@@ -29,7 +29,7 @@ public record RegisterProductService(PersistProductPort persistProductPort, Supp
         // Fetch check supplier via open feign client
         Boolean checkSupplier = supplierClient.checkIfSupplierExist(command.supplierId());
 
-        // Check if supplier exist
+        // Check if supplier does not exist
         if (Boolean.FALSE.equals(checkSupplier)) {
             throw new RuntimeException("Supplier does not Exist");
         }

@@ -24,7 +24,7 @@ public record FetchProductService(GetProductByIdPort getProductByIdPort) impleme
         // Fetch product from DB
         Product fetchedProduct = getProductByIdPort.getById(productId);
 
-        // Check if product is not exist
+        // Check if product does not exist
         if (fetchedProduct == null) {
             throw new RuntimeException("Product does not exist!");
         }

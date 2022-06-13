@@ -21,7 +21,15 @@ import java.util.List;
 public record FetchAllProductService(FetchAllProductPort fetchAllProductPort) implements FetchAllProductUseCase {
     @Override
     public List<Product> fetchAll() {
-        return fetchAllProductPort.findAll();
+        // Fetch products from DB
+        List<Product> products = fetchAllProductPort.findAll();
+
+        // Check if products does not exist
+        if (products == null) {
+            throw new RuntimeException("Products do not exist!");
+        }
+
+        return products;
     }
 }
 
