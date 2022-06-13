@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-package io.bondopangaji.notification.adapter.api.request;
+package io.bondopangaji.notification.adapter.rabbitmq.request;
 
 import java.util.UUID;
 

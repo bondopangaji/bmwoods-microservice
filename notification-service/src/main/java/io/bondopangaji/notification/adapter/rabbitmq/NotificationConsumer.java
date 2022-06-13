@@ -7,7 +7,7 @@
 
 package io.bondopangaji.notification.adapter.rabbitmq;
 
-import io.bondopangaji.notification.adapter.api.request.SendSupplierNotificationRequest;
+import io.bondopangaji.notification.adapter.rabbitmq.request.SendSupplierNotificationRequest;
 import io.bondopangaji.notification.application.port.inbound.SendSupplierNotificationUseCase;
 import io.bondopangaji.notification.application.port.inbound.command.SendSupplierNotificationCommand;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
