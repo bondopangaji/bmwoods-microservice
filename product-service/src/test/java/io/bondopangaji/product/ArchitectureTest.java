@@ -18,7 +18,7 @@ public class ArchitectureTest {
         Architectures.onionArchitecture()
                 .domainModels("io.bondopangaji.product.domain..")
                 .domainServices("io.bondopangaji.product.application")
-                .applicationServices("io.bondopangaji.product.application..")
+                .applicationServices("io.bondopangaji.product.application.service")
                 .adapter("api", "io.bondopangaji.product.adapter.api")
                 .adapter("persistence", "io.bondopangaji.product.adapter.persistence")
                 .adapter("rabbitmq", "io.bondopangaji.product.adapter.rabbitmq")
