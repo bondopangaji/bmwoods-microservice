@@ -21,22 +21,23 @@ import java.util.Properties;
  */
 @Configuration
 public class BeanConfig {
+    // SMTP
     @Value("${spring.mail.host}")
-    private String smtpHost;
+    private static String smtpHost;
     @Value("${spring.mail.port}")
-    private int smtpPort;
+    private static int smtpPort;
     @Value("${spring.mail.username}")
-    private String smtpUsername;
+    private static String smtpUsername;
     @Value("${spring.mail.password}")
-    private String smtpPassword;
+    private static String smtpPassword;
     @Value("${spring.mail.properties.mail.transport.protocol}")
-    private String mailProtocol;
+    private static String mailProtocol;
     @Value("${spring.mail.properties.mail.smtp.auth}")
-    private boolean smtpAuth;
+    private static boolean smtpAuth;
     @Value("${spring.mail.properties.mail.smtp.starttls.enable}")
-    private boolean smtpTls;
+    private static boolean smtpTls;
     @Value("${spring.mail.properties.mail.debug}")
-    private boolean smtpDebug;
+    private static boolean smtpDebug;
 
     @Bean
     @LoadBalanced
