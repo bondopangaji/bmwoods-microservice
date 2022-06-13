@@ -6,6 +6,7 @@ package io.bondopangaji.product;/*
  */
 
 import com.tngtech.archunit.core.importer.ClassFileImporter;
+import com.tngtech.archunit.core.importer.ImportOption;
 import com.tngtech.archunit.library.Architectures;
 import org.junit.jupiter.api.Test;
 
@@ -17,13 +18,14 @@ public class ArchitectureTest {
     void validateHexagonalArchitecture() {
         Architectures.onionArchitecture()
                 .domainModels("io.bondopangaji.product.domain..")
-                .domainServices("io.bondopangaji.product.application")
-                .applicationServices("io.bondopangaji.product.application.service")
-                .adapter("api", "io.bondopangaji.product.adapter.api")
-                .adapter("persistence", "io.bondopangaji.product.adapter.persistence")
-                .adapter("rabbitmq", "io.bondopangaji.product.adapter.rabbitmq")
-                .adapter("spring", "io.bondopangaji.product.adapter.spring")
+                .domainServices("io.bondopangaji.product.application.service..")
+                .applicationServices("io.bondopangaji.product.application..")
+                .adapter("api", "io.bondopangaji.product.adapter.api..")
+                .adapter("persistence", "io.bondopangaji.product.adapter.persistence..")
+                .adapter("rabbitmq", "io.bondopangaji.product.adapter.rabbitmq..")
                 .check(new ClassFileImporter()
+                        .withImportOption(
+                                new com.tngtech.archunit.core.importer.ImportOption.DoNotIncludeTests())
                         .importPackages("io.bondopangaji.product"));
     }
 }
