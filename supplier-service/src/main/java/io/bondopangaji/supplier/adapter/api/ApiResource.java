@@ -9,7 +9,7 @@ package io.bondopangaji.supplier.adapter.api;
 
 import io.bondopangaji.supplier.BeanConfig;
 import io.bondopangaji.supplier.adapter.api.request.ModifySupplierRequest;
-import io.bondopangaji.supplier.adapter.api.request.SupplierRegistrationRequest;
+import io.bondopangaji.supplier.adapter.api.request.RegisterSupplierRequest;
 import io.bondopangaji.supplier.application.port.inbound.*;
 import io.bondopangaji.supplier.application.port.inbound.command.ModifySupplierCommand;
 import io.bondopangaji.supplier.application.port.inbound.command.RegisterSupplierCommand;
@@ -48,15 +48,15 @@ public record ApiResource(RegisterSupplierUseCase registerSupplierUseCase,
     @PostMapping(consumes = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "Register a new supplier")
-    public void registerSupplier(@RequestBody SupplierRegistrationRequest supplierRegistrationRequest) {
-        log.info("New supplier registration {}", supplierRegistrationRequest.name());
+    public void registerSupplier(@RequestBody RegisterSupplierRequest registerSupplierRequest) {
+        log.info("New supplier registration {}", registerSupplierRequest.name());
         RegisterSupplierCommand command = new RegisterSupplierCommand(
-                supplierRegistrationRequest.name(),
-                supplierRegistrationRequest.email(),
-                supplierRegistrationRequest.address(),
-                supplierRegistrationRequest.zipcode(),
-                supplierRegistrationRequest.city(),
-                supplierRegistrationRequest.country()
+                registerSupplierRequest.name(),
+                registerSupplierRequest.email(),
+                registerSupplierRequest.address(),
+                registerSupplierRequest.zipcode(),
+                registerSupplierRequest.city(),
+                registerSupplierRequest.country()
         );
         registerSupplierUseCase.register(command);
     }

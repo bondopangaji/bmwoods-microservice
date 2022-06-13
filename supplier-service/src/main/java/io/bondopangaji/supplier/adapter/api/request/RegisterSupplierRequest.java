@@ -10,7 +10,7 @@ package io.bondopangaji.supplier.adapter.api.request;
 /**
  * @author Bondo Pangaji
  */
-public record SupplierRegistrationRequest(
+public record RegisterSupplierRequest(
         String name,
         String email,
         String address,
