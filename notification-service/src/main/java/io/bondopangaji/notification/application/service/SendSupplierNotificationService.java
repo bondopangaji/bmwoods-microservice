@@ -5,7 +5,7 @@
  * https://opensource.org/licenses/MIT
  */
 
-package io.bondopangaji.notification.application;
+package io.bondopangaji.notification.application.service;
 
 import io.bondopangaji.feignclient.SupplierClient;
 import io.bondopangaji.notification.application.port.inbound.SendSupplierNotificationUseCase;
@@ -26,6 +26,11 @@ public record SendSupplierNotificationService(SendSupplierNotificationPort sendS
     public void sendAndPersist(SendSupplierNotificationCommand sendSupplierNotificationCommand) {
         // Fetch supplier email via open feign client
         String email = supplierClient.getSupplierEmail(sendSupplierNotificationCommand.toSupplierId());
+
+        // Check if supplier email does not exist
+        if (email == null) {
+            throw new RuntimeException("Supplier email does not exist");
+        }
 
         // Build notification
         SupplierNotification supplierNotification = SupplierNotification.builder()
