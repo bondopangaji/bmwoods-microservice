@@ -46,13 +46,22 @@ public class ModifyProductServiceTest {
                 new ModifyProductCommand("name", "description", 100L, 10L, UUID.randomUUID());
         when(supplierClient.checkIfSupplierExist(command.supplierId())).thenReturn(false);
 
-        assertThrows(
-                RuntimeException.class, () -> modifyProductService.modify(productId, command));
+        assertThrows(RuntimeException.class, () -> modifyProductService.modify(productId, command));
     }
 
     @Test
-    @DisplayName("Should update the product when the supplier is exist")
-    public void testModifyWhenSupplierIsExistThenUpdateProduct() {
+    @DisplayName("Should throws an exception when the product is not exist")
+    public void testModifyWhenProductIsNotExistThenThrowsException() {
+        UUID productId = UUID.randomUUID();
+        ModifyProductCommand command =
+                new ModifyProductCommand("name", "description", 100L, 10L, UUID.randomUUID());
+
+        assertThrows(RuntimeException.class, () -> modifyProductService.modify(productId, command));
+    }
+
+    @Test
+    @DisplayName("Should update the product when the supplier and product are exist")
+    public void testModifyWhenSupplierAndProductAreExistThenUpdateTheProduct() {
         UUID productId = UUID.randomUUID();
         ModifyProductCommand command =
                 new ModifyProductCommand("name", "description", 100L, 10L, UUID.randomUUID());
@@ -68,13 +77,13 @@ public class ModifyProductServiceTest {
                         .updatedAt(System.currentTimeMillis())
                         .build();
 
-        when(getProductByIdPort.getById(productId)).thenReturn(product);
         when(supplierClient.checkIfSupplierExist(command.supplierId())).thenReturn(true);
+        when(getProductByIdPort.getById(productId)).thenReturn(product);
 
         modifyProductService.modify(productId, command);
 
-        verify(getProductByIdPort, times(1)).getById(productId);
         verify(supplierClient, times(1)).checkIfSupplierExist(command.supplierId());
+        verify(getProductByIdPort, times(1)).getById(productId);
         verify(persistProductPort, times(1)).save(product);
     }
 }
