@@ -100,8 +100,8 @@ public record ApiResource(RegisterSupplierUseCase registerSupplierUseCase,
 
     @GetMapping( value = "/get-email/{supplierId}", produces = "application/json")
     @ResponseStatus(HttpStatus.OK)
-    @ApiOperation(value = "Get supplier email")
-    public String getSupplierEmail(@PathVariable("supplierId") UUID supplierId) {
+    @ApiOperation(value = "Fetch supplier email")
+    public String fetchSupplierEmail(@PathVariable("supplierId") UUID supplierId) {
         return fetchSupplierEmailUseCase.fetchSupplierById(supplierId);
     }
 }
