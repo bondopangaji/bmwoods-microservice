@@ -171,9 +171,9 @@ Usage example
    </div>
    
 
-3. Zipkin Distributed Tracing
+3. Zipkin DT Dependencies
    <div>
-        <img src="_images/zipkin-distributed-trace.gif" />
+        <img src="_images/zipkin-dependencies.gif" />
    </div>
 
 
